@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Italian Sayings</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .category-btn { 
+            background: #3498db; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            margin: 5px; 
+            border-radius: 5px; 
+            cursor: pointer; 
+        }
+        .category-btn:hover { background: #2980b9; }
+        .saying-display { 
+            margin-top: 20px; 
+            padding: 20px; 
+            border: 1px solid #ddd; 
+            border-radius: 5px; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Debug Italian Sayings</h1>
+    
+    <div class="category-buttons">
+        <button class="category-btn" data-category="warm">Warm</button>
+        <button class="category-btn" data-category="sarcastic">Sarcastic</button>
+        <button class="category-btn" data-category="formal">Formal</button>
+        <button class="category-btn" data-category="humorous">Humorous</button>
+        <button class="category-btn" data-category="wise">Wise</button>
+    </div>
+    
+    <div class="saying-display" id="sayingDisplay">
+        <p>Click a category button to see an Italian saying!</p>
+    </div>
+
+    <script>
+        // Simplified version for debugging
+        class SimpleItalianApp {
+            constructor() {
+                this.sayings = [
+                    {
+                        id: 'warm_1',
+                        italian: 'Ti voglio bene',
+                        english: 'I care about you',
+                        category: 'warm',
+                        usageContext: 'Use with family and close friends'
+                    },
+                    {
+                        id: 'sarcastic_1',
+                        italian: 'Meglio tardi che mai',
+                        english: 'Better late than never',
+                        category: 'sarcastic',
+                        usageContext: 'Use sarcastically when someone is very late'
+                    },
+                    {
+                        id: 'formal_1',
+                        italian: 'La cortesia è la chiave che apre tutte le porte',
+                        english: 'Courtesy is the key that opens all doors',
+                        category: 'formal',
+                        usageContext: 'Use in professional settings'
+                    },
+                    {
+                        id: 'humorous_1',
+                        italian: 'Avere le mani bucate',
+                        english: 'To have holes in your hands',
+                        category: 'humorous',
+                        usageContext: 'Jokingly describe someone who spends money easily'
+                    },
+                    {
+                        id: 'wise_1',
+                        italian: 'Chi va piano va sano e va lontano',
+                        english: 'Who goes slowly goes safely and goes far',
+                        category: 'wise',
+                        usageContext: 'Advise someone to be patient and steady'
+                    }
+                ];
+                
+                this.init();
+            }
+            
+            init() {
+                console.log('App initialized with', this.sayings.length, 'sayings');
+                this.setupEventListeners();
+            }
+            
+            setupEventListeners() {
+                const buttons = document.querySelectorAll('.category-btn');
+                console.log('Found', buttons.length, 'buttons');
+                
+                buttons.forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const category = e.target.dataset.category;
+                        console.log('Button clicked:', category);
+                        this.showSaying(category);
+                    });
+                });
+            }
+            
+            showSaying(category) {
+                const sayingsInCategory = this.sayings.filter(s => s.category === category);
+                console.log('Sayings in', category, ':', sayingsInCategory.length);
+                
+                if (sayingsInCategory.length > 0) {
+                    const saying = sayingsInCategory[0];
+                    const displayArea = document.getElementById('sayingDisplay');
+                    
+                    displayArea.innerHTML = `
+                        <div><strong>Italian:</strong> ${saying.italian}</div>
+                        <div><strong>English:</strong> ${saying.english}</div>
+                        <div><strong>Usage:</strong> ${saying.usageContext}</div>
+                        <div><strong>Category:</strong> ${saying.category}</div>
+                    `;
+                } else {
+                    document.getElementById('sayingDisplay').innerHTML = 
+                        `<p>No sayings found for category: ${category}</p>`;
+                }
+            }
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded, initializing app...');
+            new SimpleItalianApp();
+        });
+    </script>
+</body>
+</html>
